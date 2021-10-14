@@ -19,7 +19,7 @@ class AuthenticationsControllers {
 
   async verifyRefreshToken(token) {
     const query = {
-      text: 'SELECT token FROM authentications WHERE token = $1',
+      text: 'SELECT refresh_token FROM authentications WHERE refresh_token = $1',
       values: [token],
     };
     const result = await this._pool.query(query);
@@ -33,7 +33,7 @@ class AuthenticationsControllers {
     await this.verifyRefreshToken(token);
 
     const query = {
-      text: 'DELETE FROM authentications WHERE token = $1',
+      text: 'DELETE FROM authentications WHERE refresh_token = $1',
       values: [token],
     };
     await this._pool.query(query);
