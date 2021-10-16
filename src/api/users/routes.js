@@ -12,6 +12,14 @@ const routes = (handler) => [
       auth: 'chat_app',
     },
   },
+  {
+    method: 'GET',
+    path: '/username',
+    handler: handler.searchUsernameHandler,
+    options: {
+      auth: 'chat_app',
+    },
+  },
 ];
 
 module.exports = routes;

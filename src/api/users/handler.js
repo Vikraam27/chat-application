@@ -5,6 +5,7 @@ class UserHandler {
 
     this.postUserHandler = this.postUserHandler.bind(this);
     this.getUserByIdHandler = this.getUserByIdHandler.bind(this);
+    this.searchUsernameHandler = this.searchUsernameHandler.bind(this);
   }
 
   async postUserHandler(request, h) {
@@ -42,6 +43,32 @@ class UserHandler {
       };
     } catch (error) {
       console.log(error);
+      return error;
+    }
+  }
+
+  async searchUsernameHandler(request) {
+    try {
+      const { q } = request.query;
+      if (!q) {
+        return {
+          status: 'success',
+          statusCode: 200,
+          data: {
+            users: [],
+          },
+        };
+      }
+      const users = await this._controllers.searchUsername(request.query);
+
+      return {
+        status: 'success',
+        statusCode: 200,
+        data: {
+          users,
+        },
+      };
+    } catch (error) {
       return error;
     }
   }

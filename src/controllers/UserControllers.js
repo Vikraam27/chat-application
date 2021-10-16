@@ -80,6 +80,16 @@ class UserControllers {
       throw new InvariantError('Username already taken');
     }
   }
+
+  async searchUsername({ q }) {
+    const query = {
+      text: 'SELECT username FROM users WHERE LOWER(username) LIKE \'%\' || $1 || \'%\' LIMIT 10',
+      values: [q],
+    };
+
+    const result = await this._pool.query(query);
+    return result.rows;
+  }
 }
 
 module.exports = UserControllers;
