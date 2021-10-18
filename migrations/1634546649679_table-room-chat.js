@@ -12,7 +12,7 @@ exports.up = (pgm) => {
       notNull: true,
     },
     created_at: {
-      type: 'DATE',
+      type: 'TEXT',
       notNull: true,
     },
   });
