@@ -18,7 +18,7 @@ class UserControllers {
     const createdAt = new Date().toISOString();
 
     const query = {
-      text: 'INSERT INTO users VALUES($1, $2, $3, $4, $5) RETURNING user_id',
+      text: 'INSERT INTO users VALUES($1, $2, $3, $4, $5) RETURNING id',
       values: [userId, username, hashPassword, fullname, createdAt],
     };
     const result = await this._pool.query(query);
@@ -32,7 +32,7 @@ class UserControllers {
 
   async getUserById(userId) {
     const query = {
-      text: 'SELECT user_id, username, fullname FROM users WHERE user_id = $1',
+      text: 'SELECT id, username, fullname FROM users WHERE id = $1',
       values: [userId],
     };
 
@@ -47,7 +47,7 @@ class UserControllers {
 
   async verifyUserCredential(username, password) {
     const query = {
-      text: 'SELECT user_id, password FROM users WHERE username = $1',
+      text: 'SELECT id, password FROM users WHERE username = $1',
       values: [username],
     };
 
