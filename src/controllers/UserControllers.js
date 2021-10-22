@@ -27,7 +27,7 @@ class UserControllers {
       throw InvariantError('Unable to register user');
     }
 
-    return result.rows[0].user_id;
+    return result.rows[0].id;
   }
 
   async getUserById(userId) {
