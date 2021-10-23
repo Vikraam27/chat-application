@@ -57,7 +57,7 @@ class UserControllers {
       throw new AuthenticationError('Invalid username');
     }
 
-    const { user_id: id, password: hashedPassword } = result.rows[0];
+    const { id, password: hashedPassword } = result.rows[0];
 
     const match = await compare(password, hashedPassword);
 
