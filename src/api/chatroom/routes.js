@@ -7,6 +7,14 @@ const routes = (handler) => [
       auth: 'chat_app',
     },
   },
+  {
+    method: 'GET',
+    path: '/room',
+    handler: handler.getRoomchatsHandler,
+    options: {
+      auth: 'chat_app',
+    },
+  },
 ];
 
 module.exports = routes;

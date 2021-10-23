@@ -4,6 +4,7 @@ class ChatRoomHandler {
     this._validator = validator;
 
     this.createRoomChatHandler = this.createRoomChatHandler.bind(this);
+    this.getRoomchatsHandler = this.getRoomchatsHandler.bind(this);
   }
 
   async createRoomChatHandler(request, h) {
@@ -37,6 +38,19 @@ class ChatRoomHandler {
       console.log(error);
       return error;
     }
+  }
+
+  async getRoomchatsHandler(request) {
+    const { username } = request.auth.artifacts.decoded.payload;
+
+    const roomChat = await this._controllers.getAllRoomchats(username);
+
+    return {
+      status: 'success',
+      data: {
+        roomChat,
+      },
+    };
   }
 }
 

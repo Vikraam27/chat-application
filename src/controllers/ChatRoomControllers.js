@@ -47,6 +47,19 @@ class ChatRoomControllers {
 
     return roomIds.rows[0].room_id;
   }
+
+  async getAllRoomchats(username) {
+    const query = {
+      text: `SELECT chat_room.id, chat_room.creator, room_participant.participant_username FROM chat_room
+      LEFT JOIN room_participant ON room_participant.room_id = chat_room.id
+      WHERE room_participant.participant_username = $1 OR chat_room.creator = $1;`,
+      values: [username],
+    };
+
+    const result = await this._pool.query(query);
+
+    return result.rows;
+  }
 }
 
 module.exports = ChatRoomControllers;

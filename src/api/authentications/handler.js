@@ -16,8 +16,8 @@ class AuthenticationsHandler {
       const { username, password } = request.payload;
       const id = await this._userControllers.verifyUserCredential(username, password);
 
-      const accessToken = this._tokenManager.generateAccessToken({ id });
-      const refreshToken = this._tokenManager.generateRefreshToken({ id });
+      const accessToken = this._tokenManager.generateAccessToken({ id, username });
+      const refreshToken = this._tokenManager.generateRefreshToken({ id, username });
 
       await this._authenticationsControllers.addRefreshToken(refreshToken);
 
@@ -42,9 +42,9 @@ class AuthenticationsHandler {
 
       const { refreshToken } = request.payload;
       await this._authenticationsControllers.verifyRefreshToken(refreshToken);
-      const { id } = this._tokenManager.verifyRefreshToken(refreshToken);
+      const { id, username } = this._tokenManager.verifyRefreshToken(refreshToken);
 
-      const accessToken = this._tokenManager.generateAccessToken({ id });
+      const accessToken = this._tokenManager.generateAccessToken({ id, username });
 
       return {
         status: 'success',
