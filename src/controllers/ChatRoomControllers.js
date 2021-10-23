@@ -21,7 +21,7 @@ class ChatRoomControllers {
     return result.rows[0];
   }
 
-  async creatRoomChat(usernameCreator, usernameParticipant) {
+  async createRoomChat(usernameCreator, usernameParticipant) {
     const id = `room-${nanoid(10)}`;
     const createdAt = new Date().toISOString();
 

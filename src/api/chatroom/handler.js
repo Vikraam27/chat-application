@@ -22,7 +22,7 @@ class ChatRoomHandler {
           },
         };
       }
-      const roomId = await this._controllers.creatRoomChat(username, participant);
+      const roomId = await this._controllers.createRoomChat(username, participant);
       const response = h.response({
         status: 'success',
         message: 'successfully create chat room',
