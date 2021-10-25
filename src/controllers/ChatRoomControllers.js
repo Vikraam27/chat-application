@@ -4,8 +4,9 @@ const { nanoid } = require('nanoid');
 const InvariantError = require('../exceptions/InvariantError');
 
 class ChatRoomControllers {
-  constructor() {
+  constructor(ChatControllers) {
     this._pool = new Pool();
+    this._ChatControllers = ChatControllers;
   }
 
   async verifyRoomChat(usernameCreator, usernameParticipant) {
@@ -44,6 +45,13 @@ class ChatRoomControllers {
     if (!roomIds.rowCount) {
       throw new InvariantError('unable to join room');
     }
+    this._ChatControllers.setRoom(id, JSON.stringify({
+      id,
+      creator: usernameCreator,
+      participant_username: usernameParticipant,
+      createdAt,
+      messages: [],
+    }));
 
     return roomIds.rows[0].room_id;
   }

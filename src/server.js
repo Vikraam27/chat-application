@@ -15,6 +15,7 @@ const TokenManager = require('./tokenize/TokenManager');
 const AuthenticationsValidator = require('./validator/authentications');
 
 // chat room
+const ChatControllers = require('./controllers/redis/ChatControllers');
 const chatRoom = require('./api/chatroom');
 const ChatRoomControllers = require('./controllers/ChatRoomControllers');
 const ChatRoomValidator = require('./validator/chatroom');
@@ -23,9 +24,10 @@ const ChatRoomValidator = require('./validator/chatroom');
 const ClientError = require('./exceptions/ClientError');
 
 const init = async () => {
+  const chatControllers = new ChatControllers();
   const userControllers = new UserControllers();
   const authenticationsControllers = new AuthenticationsControllers();
-  const chatRoomControllers = new ChatRoomControllers();
+  const chatRoomControllers = new ChatRoomControllers(chatControllers);
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -82,6 +84,7 @@ const init = async () => {
       options: {
         controllers: chatRoomControllers,
         validator: ChatRoomValidator,
+        chatControllers,
       },
     },
   ]);

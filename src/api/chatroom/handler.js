@@ -1,10 +1,12 @@
 class ChatRoomHandler {
-  constructor(controllers, validator) {
+  constructor(controllers, validator, chatControllers) {
     this._controllers = controllers;
     this._validator = validator;
+    this._chatControllers = chatControllers;
 
     this.createRoomChatHandler = this.createRoomChatHandler.bind(this);
     this.getRoomchatsHandler = this.getRoomchatsHandler.bind(this);
+    this.getRoomChatByIdHandler = this.getRoomChatByIdHandler.bind(this);
   }
 
   async createRoomChatHandler(request, h) {
@@ -41,16 +43,37 @@ class ChatRoomHandler {
   }
 
   async getRoomchatsHandler(request) {
-    const { username } = request.auth.artifacts.decoded.payload;
+    try {
+      const { username } = request.auth.artifacts.decoded.payload;
 
-    const roomChat = await this._controllers.getAllRoomchats(username);
+      const roomChat = await this._controllers.getAllRoomchats(username);
 
-    return {
-      status: 'success',
-      data: {
-        roomChat,
-      },
-    };
+      return {
+        status: 'success',
+        data: {
+          roomChat,
+        },
+      };
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  async getRoomChatByIdHandler(request) {
+    try {
+      const { roomId } = request.params;
+      const roomData = await this._chatControllers.getRoom(roomId);
+
+      return {
+        status: 'success',
+        data: {
+          roomData: JSON.parse(roomData),
+        },
+      };
+    } catch (error) {
+      return error;
+    }
   }
 }
 
