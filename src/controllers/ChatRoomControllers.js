@@ -2,11 +2,11 @@
 const { Pool } = require('pg');
 const { nanoid } = require('nanoid');
 const InvariantError = require('../exceptions/InvariantError');
+const NotFoundError = require('../exceptions/NotFoundError');
 
 class ChatRoomControllers {
-  constructor(ChatControllers) {
+  constructor() {
     this._pool = new Pool();
-    this._ChatControllers = ChatControllers;
   }
 
   async verifyRoomChat(usernameCreator, usernameParticipant) {
@@ -45,13 +45,6 @@ class ChatRoomControllers {
     if (!roomIds.rowCount) {
       throw new InvariantError('unable to join room');
     }
-    this._ChatControllers.setRoom(id, JSON.stringify({
-      id,
-      creator: usernameCreator,
-      participant_username: usernameParticipant,
-      createdAt,
-      messages: [],
-    }));
 
     return roomIds.rows[0].room_id;
   }
@@ -67,6 +60,23 @@ class ChatRoomControllers {
     const result = await this._pool.query(query);
 
     return result.rows;
+  }
+
+  async getRoomChatById(roomId) {
+    const query = {
+      text: `SELECT chat_room.id, chat_room.creator, room_participant.participant_username FROM chat_room
+      LEFT JOIN room_participant ON room_participant.room_id = chat_room.id
+      WHERE room_participant.room_id = $1 OR chat_room.id = $1`,
+      values: [roomId],
+    };
+
+    const result = await this._pool.query(query);
+
+    if (!result.rowCount) {
+      throw new NotFoundError('invalid room id');
+    }
+
+    return result.rows[0];
   }
 }
 

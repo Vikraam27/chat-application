@@ -63,12 +63,12 @@ class ChatRoomHandler {
   async getRoomChatByIdHandler(request) {
     try {
       const { roomId } = request.params;
-      const roomData = await this._chatControllers.getRoom(roomId);
+      const roomData = await this._controllers.getRoomChatById(roomId);
 
       return {
         status: 'success',
         data: {
-          roomData: JSON.parse(roomData),
+          roomData,
         },
       };
     } catch (error) {

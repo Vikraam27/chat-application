@@ -27,7 +27,7 @@ const init = async () => {
   const chatControllers = new ChatControllers();
   const userControllers = new UserControllers();
   const authenticationsControllers = new AuthenticationsControllers();
-  const chatRoomControllers = new ChatRoomControllers(chatControllers);
+  const chatRoomControllers = new ChatRoomControllers();
 
   const server = Hapi.server({
     port: process.env.PORT,
@@ -107,6 +107,19 @@ const init = async () => {
     });
     serverError.code(500);
     return response.continue || response;
+  });
+
+  // eslint-disable-next-line global-require
+  const io = require('socket.io')(server.listener, {
+    cors: {
+      origin: 'http://localhost:5000',
+      methods: ['GET', 'POST'],
+    },
+  });
+  io.on('connection', (socket) => {
+    console.log('connected', socket);
+
+    // Do all the socket stuff here.
   });
 
   await server.start();
