@@ -39,6 +39,8 @@ REDIS_SERVER=localhost
 - `npm run start` to start the local server with nodemon
 - The API is available at `http://localhost:5000`
 
+# Code Overview
+
 ## Dependencies
 
 - [hapijs](https://github.com/hapijs/hapi) - The server for handling and routing HTTP requests
