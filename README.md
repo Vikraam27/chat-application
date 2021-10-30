@@ -14,8 +14,7 @@ Install [Node.JS LTS version](https://nodejs.org/en/download/)
 - Install PostgreSQL ([instructions](https://www.postgresql.org/download/)) and run it by executing `systemctl start postgresql`
 - Install Redis Stable version ([instructions](https://redis.io/download)) and run it by executing `redis-cli`
 - create .env file
-- 
-Add your application configuration to your `.env` file in the root of your project:
+- Add your application configuration to your `.env` file in the root of your project:
 
 ```shell
 # server configuration
