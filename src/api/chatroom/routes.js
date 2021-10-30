@@ -23,6 +23,14 @@ const routes = (handler) => [
       auth: 'chat_app',
     },
   },
+  {
+    method: 'POST',
+    path: '/room/{roomId}/message',
+    handler: handler.postMessageHandler,
+    options: {
+      auth: 'chat_app',
+    },
+  },
 ];
 
 module.exports = routes;

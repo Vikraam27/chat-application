@@ -23,7 +23,7 @@ class ChatRoomControllers {
   }
 
   async createRoomChat(usernameCreator, usernameParticipant) {
-    const id = `room-${nanoid(10)}`;
+    const id = `room-${nanoid(6)}`;
     const createdAt = new Date().toISOString();
 
     const query = {

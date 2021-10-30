@@ -11,9 +11,9 @@ class ChatControllers {
     });
   }
 
-  setRoom(key, value) {
+  async postMessage(key, value) {
     return new Promise((resolve, reject) => {
-      this._client.set(key, value, (error, ok) => {
+      this._client.rpush(key, value, (error, ok) => {
         if (error) {
           return reject(error);
         }
@@ -23,9 +23,9 @@ class ChatControllers {
     });
   }
 
-  async getRoom(key) {
+  async getAllMessage(key) {
     return new Promise((resolve, reject) => {
-      this._client.get(key, (error, reply) => {
+      this._client.lrange(key, 0, -1, (error, reply) => {
         if (error) {
           return reject(error);
         }

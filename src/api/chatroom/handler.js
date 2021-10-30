@@ -1,3 +1,4 @@
+/* eslint-disable no-new-func */
 class ChatRoomHandler {
   constructor(controllers, validator, chatControllers) {
     this._controllers = controllers;
@@ -7,6 +8,7 @@ class ChatRoomHandler {
     this.createRoomChatHandler = this.createRoomChatHandler.bind(this);
     this.getRoomchatsHandler = this.getRoomchatsHandler.bind(this);
     this.getRoomChatByIdHandler = this.getRoomChatByIdHandler.bind(this);
+    this.postMessageHandler = this.postMessageHandler.bind(this);
   }
 
   async createRoomChatHandler(request, h) {
@@ -64,13 +66,50 @@ class ChatRoomHandler {
     try {
       const { roomId } = request.params;
       const roomData = await this._controllers.getRoomChatById(roomId);
-
+      const message = await this._chatControllers.getAllMessage(roomId);
+      const objectStringArray = (new Function(`return [${message}];`)());
       return {
         status: 'success',
         data: {
-          roomData,
+          roomData: {
+            id: roomData.id,
+            creator: roomData.creator,
+            participant: roomData.participant_username,
+            messages: objectStringArray,
+          },
         },
       };
+    } catch (error) {
+      console.log(error);
+      return error;
+    }
+  }
+
+  async postMessageHandler(request, h) {
+    try {
+      this._validator.validateMessagePayload(request.payload);
+
+      const { roomId } = request.params;
+      const { sender, message } = request.payload;
+      const timestamp = new Date().toISOString();
+      const value = JSON.stringify({
+        sender,
+        message,
+        timestamp,
+      });
+      await this._chatControllers.postMessage(roomId, value);
+
+      const response = h.response({
+        status: 'success',
+        message: 'successfully send message',
+        data: {
+          sender,
+          message,
+          timestamp,
+        },
+      });
+      response.code(201);
+      return response;
     } catch (error) {
       return error;
     }

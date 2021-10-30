@@ -117,9 +117,17 @@ const init = async () => {
     },
   });
   io.on('connection', (socket) => {
-    console.log('connected', socket);
+    socket.on('joinRoom', ({ roomId }) => {
+      socket.join(roomId);
+    });
 
-    // Do all the socket stuff here.
+    socket.on('chatMsg', ({
+      roomId, sender, message, timestamp,
+    }) => {
+      io.to(roomId).emit('msg', ({ sender, message, timestamp }));
+    });
+
+    socket.on('disconnect');
   });
 
   await server.start();
