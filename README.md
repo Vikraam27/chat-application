@@ -36,5 +36,14 @@ ACCESS_TOKEN_AGE=<token age >
 # Redis
 REDIS_SERVER=localhost
 ```
-- `npm start` to start the local server
+- `npm run start` to start the local server with nodemon
 - The API is available at `http://localhost:5000`
+
+## Dependencies
+
+- [hapijs](https://github.com/hapijs/hapi) - The server for handling and routing HTTP requests
+- [hapi-auth-jwt2](https://github.com/dwyl/hapi-auth-jwt2) - Plugin for validating JWTs for authentication
+- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - For generating JWTs used by authentication
+- [mongoose](https://github.com/Automattic/mongoose) - For modeling and mapping MongoDB data to javascript 
+- [mongoose-unique-validator](https://github.com/blakehaswell/mongoose-unique-validator) - For handling unique validation errors in Mongoose. Mongoose only handles validation at the document level, so a unique index across a collection will throw an exception at the driver level. The `mongoose-unique-validator` plugin helps us by formatting the error like a normal mongoose `ValidationError`.
+- [slug](https://github.com/dodo/node-slug) - For encoding titles into a URL-friendly format
