@@ -42,8 +42,14 @@ REDIS_SERVER=localhost
 ## Dependencies
 
 - [hapijs](https://github.com/hapijs/hapi) - The server for handling and routing HTTP requests
-- [hapi-auth-jwt2](https://github.com/dwyl/hapi-auth-jwt2) - Plugin for validating JWTs for authentication
-- [jsonwebtoken](https://github.com/auth0/node-jsonwebtoken) - For generating JWTs used by authentication
-- [mongoose](https://github.com/Automattic/mongoose) - For modeling and mapping MongoDB data to javascript 
-- [mongoose-unique-validator](https://github.com/blakehaswell/mongoose-unique-validator) - For handling unique validation errors in Mongoose. Mongoose only handles validation at the document level, so a unique index across a collection will throw an exception at the driver level. The `mongoose-unique-validator` plugin helps us by formatting the error like a normal mongoose `ValidationError`.
-- [slug](https://github.com/dodo/node-slug) - For encoding titles into a URL-friendly format
+- [hapi/jwt](https://github.com/hapijs/jwt) - Plugin for validating JWTs for authentication
+- [bcrypt.js](https://github.com/kelektiv/node.bcrypt.js) - A library to help you hash passwords
+- [dotenv](https://github.com/motdotla/dotenv) - Dotenv is a zero-dependency module that loads environment variables from a .env file into process.env
+- [joi](https://github.com/sideway/joi) - schema description language and data validator for JavaScript.
+- [nanoid](https://github.com/ai/nanoid) - A tiny, secure, URL-friendly, unique string ID generator for JavaScript.
+- [node-pg-migrate](https://github.com/salsita/node-pg-migrate) - Node.js database migration management built exclusively for postgres. 
+- [pg](https://github.com/brianc/node-postgres) - Non-blocking PostgreSQL client for Node.js. Pure JavaScript and optional native libpq bindings.
+- [redis](https://github.com/NodeRedis/node-redis) - A high performance Node.js Redis client.
+- [socket.io](https://github.com/socketio/socket.io) -Socket.IO enables real-time bidirectional event-based communication
+- [eslint](https://github.com/eslint/eslint) - ESLint is a tool for identifying and reporting on patterns found in ECMAScript/JavaScript code. 
+- [nodemon](https://github.com/remy/nodemon) - nodemon is a tool that helps develop node.js based applications by automatically restarting the node application when file changes in the directory are detected.
