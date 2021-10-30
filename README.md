@@ -14,13 +14,28 @@ Install [Node.JS LTS version](https://nodejs.org/en/download/)
 - Install PostgreSQL ([instructions](https://www.postgresql.org/download/)) and run it by executing `systemctl start postgresql`
 - Install Redis Stable version ([instructions](https://redis.io/download)) and run it by executing `redis-cli`
 - create .env file
-- ## Usage
-
+- 
 Add your application configuration to your `.env` file in the root of your project:
 
 ```shell
-S3_BUCKET=YOURS3BUCKET
-SECRET_KEY=YOURSECRETKEYGOESHERE
+# server configuration
+HOST=localhost
+PORT=5000
+ 
+# node-postgres configuration
+PGUSER=<userdb>
+PGHOST=localhost
+PGPASSWORD=<userpassword>
+PGDATABASE=chatapp
+PGPORT=5432
+
+# JWT token
+ACCESS_TOKEN_KEY=<your secret access Token>
+REFRESH_TOKEN_KEY=<your secret refresh token Token>
+ACCESS_TOKEN_AGE=<token age >
+
+# Redis
+REDIS_SERVER=localhost
 ```
 - `npm start` to start the local server
-- The API is available at `http://localhost:8080/api`
+- The API is available at `http://localhost:5000`
